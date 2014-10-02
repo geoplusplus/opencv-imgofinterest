@@ -1,4 +1,4 @@
-# imgopencv
+# opencv-imgofinterest
 
 This project is built using [SBT](http://www.scala-sbt.org/)
 

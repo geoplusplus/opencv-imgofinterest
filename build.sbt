@@ -1,7 +1,7 @@
 
 organization in ThisBuild := "org.mbari"
 
-name := "imgopencv"
+name := "opencv-imgofinterest"
 
 version in ThisBuild := "1.0-SNAPSHOT"
 
