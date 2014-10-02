@@ -15,13 +15,11 @@ This project is built using [SBT](http://www.scala-sbt.org/)
 Basically, in Scala, just call `OpenCV` at least once somewhere in your application so that the native libraries get added to `java.library.path`. For example:
 
 ```scala
-# When this object is constructed, the share native lib is 
-# unpacked and loaded by the JVM
+// When this object is constructed, the share native lib is 
+// unpacked to your temporary directory and loaded by the JVM
 org.mbari.opencv.OpenCV
 ```
 [OpenCV](https://github.com/hohonuuli/opencv-imgofinterest/blob/master/src/main/scala/org/mbari/opencv/OpenCV.scala) is an object, which in scala is essentially a [Singleton](https://en.wikipedia.org/wiki/Singleton_pattern); calling it multiple times won't hurt the intialization.
-
-If opencv's dynlib is not found on `java.library.path`, it get's extracted out of the jar file and copied to your _TMPDIR_. Then it's added to the library path at runtime. No muss, no fuss for you.
 
 ## Useful [SBT commands](http://www.scala-sbt.org/release/docs/Command-Line-Reference.html) for this project
 
