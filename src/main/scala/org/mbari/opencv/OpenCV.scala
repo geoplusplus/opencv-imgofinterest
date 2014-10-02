@@ -32,7 +32,7 @@ object OpenCV {
     if (libraryName != null) {
       val os = System.getProperty("os.name")
       val tempDir = new File(System.getProperty("java.io.tmpdir"))
-      val libraryHome = new File(new File(tempDir, "opencv-native"), os.substring(0, 3))
+      val libraryHome = new File(new File(tempDir, "opencv-imgofinterest"), os.substring(0, 3))
       if (!libraryHome.exists()) {
         libraryHome.mkdirs();
       }

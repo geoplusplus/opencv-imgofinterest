@@ -8,14 +8,16 @@ This project is built using [SBT](http://www.scala-sbt.org/)
 
 ### How I set it up
 - This project uses [OpenCV](http://opencv.org/) version 2.4.9 built using homebrew on Mac OS X 10.9.5. 
-- OpenCV's Java libs were located at /usr/local/Cellar/opencv/2.4.9/share/OpenCV/java and the jar file in that directory was copied do this projects _lib_ directory. 
-- I bundled the dynlib in a jar under the path _native_ and also dropped it into _lib_.
+- OpenCV's Java libs were located at /usr/local/Cellar/opencv/2.4.9/share/OpenCV/java and the jar file in that directory was copied to this projects _lib_ directory. 
+- I bundled OpenCV's dynlib in a jar under the path _native_ and also dropped it into _lib_.
 
 ### Initializing OpenCV
 Basically, in Scala, just call `OpenCV` at least once somewhere in your application so that the native libraries get added to `java.library.path`. For example:
 
 ```scala
-val cv = org.mbari.opencv.OpenCV
+# When this object is constructed, the share native lib is 
+# unpacked and loaded by the JVM
+org.mbari.opencv.OpenCV
 ```
 [OpenCV](https://github.com/hohonuuli/opencv-imgofinterest/blob/master/src/main/scala/org/mbari/opencv/OpenCV.scala) is an object, which in scala is essentially a [Singleton](https://en.wikipedia.org/wiki/Singleton_pattern); calling it multiple times won't hurt the intialization.
 
