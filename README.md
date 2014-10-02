@@ -44,7 +44,7 @@ If opencv's dynlib is not found on `java.library.path`, it get's extracted out o
 - __update-classifiers__: Download sources and javadoc for all dependencies
 - __version-report__: Shows a flat listing of all dependencies in this project, including transitive ones.
 
-### To run main class using SBT to launch it
+### To run a main class
 `sbt 'run-main org.mbari.foo.Main'`
 
 ### To run a single test

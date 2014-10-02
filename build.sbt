@@ -1,4 +1,5 @@
 
+// GENERAL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 organization in ThisBuild := "org.mbari"
 
 name := "opencv-imgofinterest"
@@ -12,11 +13,11 @@ scalacOptions ++= Seq(
       "-unchecked",
       "-deprecation")
 
+
+// DEPENDENCIES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Add libs
 libraryDependencies ++= Seq(
-    "org.mbari" % "mbarix4j" % "1.9.2"
-  )
-
+    "org.mbari" % "mbarix4j" % "1.9.2")
 
 // Add Testing libs
 libraryDependencies ++= Seq(
@@ -35,17 +36,23 @@ libraryDependencies ++= {
     "ch.qos.logback" % "logback-core" % logbackVersion)
 }
 
-resolvers += Resolver.mavenLocal
+resolvers ++= Seq(
+  Resolver.mavenLocal,
+  "MBARI Maven Repository" at "http://mbari-maven-repository.googlecode.com/svn/repository/")
 
+
+// PUBLISHING ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 publishMavenStyle := true
 
 publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
 
-// Adds commands for dependency reporting
-net.virtualvoid.sbt.graph.Plugin.graphSettings
 
+// CUSTOM SETTINGS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // set the prompt (for this build) to include the project id.
-shellPrompt in ThisBuild := { state => Project.extract(state).currentRef.project + "> " }
+shellPrompt in ThisBuild := { state => 
+  val user = System.getProperty("user.name")
+  s"\n${user}@${Project.extract(state).currentRef.project}\nsbt> " 
+}
 
 // Add this setting to your project to generate a version report (See ExtendedBuild.scala too.)
 // Use as 'sbt versionReport' or 'sbt version-report'
@@ -71,6 +78,9 @@ versionReport <<= (externalDependencyClasspath in Compile, streams) map {
 
 // For sbt-pack
 packAutoSettings
+
+// Adds commands for dependency reporting
+net.virtualvoid.sbt.graph.Plugin.graphSettings
 
 // fork a new JVM for 'run' and 'test:run'
 fork := true
