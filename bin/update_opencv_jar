@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# This script updates the OpenCV's Java dependencies for this project by
+# doing the following:
+#  - Copy OPenCV's jar file into lib
+#  - Build a jar containing OpenCV's dylib native library
+#
+# The path of this script assumes that you built it using homebrew. Change
+# OPENCV_ROOT if this is not true.
+
+PRJ_HOME=$(cd $(dirname "$0")/..; pwd)
+OPENCV_ROOT=/usr/local/Cellar/opencv
+
+cd $OPENCV_ROOT
+JAVA_ROOT=$(find . -name java)
+
+# Copy jar
+echo Copying opencv jar into $PRJ_HOME/lib
+cp $(find $JAVA_ROOT -name *jar) $PRJ_HOME/lib
+
+# Build native lib jar
+echo Building opencv native library jar
+TEMP_HOME=$PRJ_HOME/temp
+mkdir -p $TEMP_HOME/native
+cp $(find $JAVA_ROOT -name *dylib) $TEMP_HOME/native
+cd $TEMP_HOME
+jar -cvf opencv-native.jar native
+mv opencv-native.jar $PRJ_HOME/lib
+rm -rf $TEMP_HOME

@@ -7,7 +7,7 @@ import org.opencv.objdetect.CascadeClassifier
 
 class DetectFaceDemo {
 
-  val cv = OpenCV
+  OpenCV // intialize opencv
 
   def run(): Unit = {
     println(s"\nRunning ${getClass.getSimpleName}")

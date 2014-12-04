@@ -1,8 +1,11 @@
 package org.mbari.opencv
 
-import java.io.File
-import org.opencv.core.Core
+import java.awt.image.{DataBufferByte, BufferedImage}
+import java.io.{ByteArrayInputStream, File}
+import javax.imageio.ImageIO
+import org.opencv.core.{CvType, MatOfByte, Mat, Core}
 import org.mbari.nativelib.Native
+import org.opencv.highgui.Highgui
 import org.slf4j.LoggerFactory
 
 /**
@@ -34,10 +37,10 @@ object OpenCV {
       val tempDir = new File(System.getProperty("java.io.tmpdir"))
       val libraryHome = new File(new File(tempDir, "opencv-imgofinterest"), os.substring(0, 3))
       if (!libraryHome.exists()) {
-        libraryHome.mkdirs();
+        libraryHome.mkdirs()
       }
 
-      if (!libraryHome.canWrite()) {
+      if (!libraryHome.canWrite) {
         throw new RuntimeException("Unable to extract native libary to " + libraryHome +
           ". Verify that you have write access to that directory");
       }
@@ -48,4 +51,22 @@ object OpenCV {
       log.error("A native OpenCV library for your platform is not available")
     }
   }
+
+  def matToBufferedImage(image: Mat): BufferedImage = {
+    val byteMat = new MatOfByte
+    Highgui.imencode(".png", image, byteMat)
+    val bytes = byteMat.toArray
+    val inputStream = new ByteArrayInputStream(bytes)
+    ImageIO.read(inputStream)
+  }
+
+  def bufferedImageToMat(image: BufferedImage): Mat = {
+    val pixels = image.getRaster.getDataBuffer.asInstanceOf[DataBufferByte].getData
+    val mat = new Mat(image.getHeight, image.getWidth, CvType.CV_8UC3)
+    mat.put(0, 0, pixels)
+    mat
+  }
+
+
+
 }
