@@ -5,8 +5,8 @@ This is a Scala project using OpenCV's Java bindings for testing ideas on findin
 This project is built using [SBT](http://www.scala-sbt.org/)
 
 ## To Build  
-# Run `bin/update_opencv_jar` to grab build your locally installed OpenCV java libs.
-# Run `sbt package`
+- Run `bin/update_opencv_jar` to grab build your locally installed OpenCV java libs.
+- Run `sbt package`
 
 ## OpenCV Info
 
