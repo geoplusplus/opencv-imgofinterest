@@ -1,0 +1,8 @@
+excludeFiles = "*.{pyc,o,class}"
+excludeDirectories = "**/{target,build}"
+includeFilesInBrowser = ".gitignore"
+
+# special per-filetype rules can be specified like so:
+[ *.{txt,md,mdown,markdown} ]
+spellChecking  = true
+tabSize        = 4
